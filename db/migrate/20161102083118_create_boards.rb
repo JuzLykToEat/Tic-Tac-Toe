@@ -1,0 +1,9 @@
+class CreateBoards < ActiveRecord::Migration[5.0]
+  def change
+    create_table :boards do |t|
+      t.integer :cell
+
+      t.timestamps
+    end
+  end
+end
