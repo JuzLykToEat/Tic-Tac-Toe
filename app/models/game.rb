@@ -12,7 +12,7 @@ class Game < ApplicationRecord
   def game_winner(board)
     WINNING_COMBINATION.each do |a|
       if position[a[0]] == position[a[1]] && position[a[1]] == position[a[2]]
-        Game.outcome = position[a[0]].value
+        self.outcome = position[a[0]].value
       end
     end
   end
@@ -26,7 +26,7 @@ class Game < ApplicationRecord
     end
 
     if available.empty?
-      Game.outcome = 0
+      self.outcome = 0
     end
   end
 

@@ -2,14 +2,19 @@ class Board < ApplicationRecord
   has_many :cells
   belongs_to :game
 
-  def initialize
-    position = Array.new(9)
-
-    for i in 0..8
-      position[i] = Cell.new
-      position[i].place = i
-    end
+  def new_cell(i)
+    position = Cell.new
+    position.place = i
+    position.board_id = self.id
+    position.save!
   end
 
-  
+  def new_board
+
+    for i in 0..8
+      new_cell(i)
+    end
+
+  end
+
 end

@@ -1,0 +1,15 @@
+.board {
+  max-width: 300px;
+  max-height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.cell {
+  min-width: 100px;
+  min-height: 100px;
+  border-style: solid;
+  border-width: medium;
+  border-color: black;
+}
