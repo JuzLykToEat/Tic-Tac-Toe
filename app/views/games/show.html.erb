@@ -7,13 +7,11 @@
       <% when 2 %>
         <h1 class="text-center">O</h1>
       <% else %>
-        <% if @current_player == 1 %>
-          <%= link_to place_x_path(cell_id: cell.id), method: :post, class: "btn btn-block like-button" do %>
-            put x
-          <% end %>
-        <% else %>
-          <%= link_to place_o_path(cell_id: cell.id), method: :post, class: "btn btn-block like-button" do %>
-            put o
+        <% if @game.outcome == nil %>
+          <% if @current_player == 1 %>
+            <%= link_to "", place_x_path(cell_id: cell.id), method: :post, class: "btn btn-block invisible-layout" %>
+          <% else %>
+            <%= link_to "", place_o_path(cell_id: cell.id), method: :post, class: "btn btn-block invisible-layout" %>
           <% end %>
         <% end %>
       <% end %>

@@ -11,8 +11,8 @@ class Game < ApplicationRecord
 
   def game_winner(cell)
     WINNING_COMBINATION.each do |a|
-      if cell.find_by(place: a[0]).value == cell.find_by(place: a[1]).value && cell.find_by(place: a[1]).value == cell.find_by(place: a[2]).value
-        self.update(outcome: cell.find_by(place: a[0]).value)
+      if cell.value_of_cell(a[0]) == cell.value_of_cell(a[1]) && cell.value_of_cell(a[1]) == cell.value_of_cell(a[2]) && cell.value_of_cell(a[2]) != 0
+        self.update(outcome: cell.value_of_cell(a[0]))
       end
     end
   end
@@ -29,5 +29,6 @@ class Game < ApplicationRecord
       self.outcome = 0
     end
   end
+
 
 end
