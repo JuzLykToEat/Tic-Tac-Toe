@@ -1,6 +1,39 @@
 <div class="board text-center">
   <% @cell.each do |cell| %>
-    <div class="cell" id="cell-<%= cell.id %>">
+    <div class="cell" id="cell-<%= cell.place %>">
+      <% case cell.value %>
+      <% when 1 %>
+        <h1 class="text-center">X</h1>
+      <% when 2 %>
+        <h1 class="text-center">O</h1>
+      <% else %>
+        <% if @current_player == 1 %>
+          <%= link_to place_x_path(cell_id: cell.id), method: :post, class: "btn btn-block like-button" do %>
+            put x
+          <% end %>
+        <% else %>
+          <%= link_to place_o_path(cell_id: cell.id), method: :post, class: "btn btn-block like-button" do %>
+            put o
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
+
+  <div class="text-field">
+    <% case @game.outcome %>
+    <% when 1 %>
+      Player 1 wins!
+    <% when 2 %>
+      Player 2 wins!
+    <% when 0 %>
+      Draw!
+    <% else %>
+      <% if @current_player == 1 %>
+        Player 1's move
+      <% else %>
+        Player 2's move
+      <% end %>
+    <% end %>
+  </div>
 </div>

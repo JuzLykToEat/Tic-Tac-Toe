@@ -9,19 +9,19 @@ class Game < ApplicationRecord
     [0,4,8], [2,4,6]
   ]
 
-  def game_winner(board)
+  def game_winner(cell)
     WINNING_COMBINATION.each do |a|
-      if position[a[0]] == position[a[1]] && position[a[1]] == position[a[2]]
-        self.outcome = position[a[0]].value
+      if cell.find_by(place: a[0]).value == cell.find_by(place: a[1]).value && cell.find_by(place: a[1]).value == cell.find_by(place: a[2]).value
+        self.update(outcome: cell.find_by(place: a[0]).value)
       end
     end
   end
 
-  def game_draw(board)
+  def game_draw(cell)
     available = []
-    position.each do |position|
-      if position.value == 0
-        available << position
+    cell.each do |cell|
+      if cell.value == 0
+        available << cell
       end
     end
 

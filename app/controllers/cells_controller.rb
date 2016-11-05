@@ -5,18 +5,30 @@ class CellsController < ApplicationController
     if @cell.value == 0
       value = 1
     end
+
+    update_value(value)
+    redirect_to(:back)
   end
 
   def place_o
     if @cell.value == 0
       value = 2
     end
+
+    update_value(value)
+    redirect_to(:back)
+
   end
 
   private
 
   def find_cell
-    @board = Board.find_by(id: params[:board_id])
-    @cell = @board.cell.find_by(place: params[:position])
+    @cell = Cell.find_by(id: params[:cell_id])
+  end
+
+  def update_value(value)
+    if @cell
+      @cell.update(value: value)
+    end
   end
 end
