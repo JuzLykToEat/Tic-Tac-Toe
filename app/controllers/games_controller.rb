@@ -4,12 +4,13 @@ class GamesController < ApplicationController
     @game = Game.find_by(id: params[:id])
     @board = Board.find_by(game_id: params[:id])
     @cell = @board.cells.order(place: :asc)
+    @ai = Ai.find_by(id: 1)
+    @cells_array = @ai.cells_array(@cell)
 
-    @game.game_winner(@cell)
     @game.game_draw(@cell)
+    @game.determine_winner(@cell)
     player_turn?
     binding.pry
-    # @game.minimax(@cell)
   end
 
   def create
@@ -27,10 +28,6 @@ class GamesController < ApplicationController
   end
 
   private
-
-    def game_params
-      params.require(:game).permit(:outcome)
-    end
 
     def player_turn?
       if @cell.where(value: 1).count > @cell.where(value: 2).count
