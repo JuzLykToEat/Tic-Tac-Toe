@@ -5,9 +5,11 @@ class GamesController < ApplicationController
     @board = Board.find_by(game_id: params[:id])
     @cell = @board.cells.order(place: :asc)
 
-    player_turn?
     @game.game_winner(@cell)
     @game.game_draw(@cell)
+    player_turn?
+    binding.pry
+    # @game.minimax(@cell)
   end
 
   def create
