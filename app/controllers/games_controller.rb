@@ -6,13 +6,12 @@ class GamesController < ApplicationController
     @cell = @board.cells.order(place: :asc)
     player_turn?
 
-    @ai = Ai.find_by(id: 1)
+    @ai = Ai.find_or_create_by(id: 1)
     @cells_array = @ai.cells_array(@cell)
 
     if !@ai.game_ended?(@cells_array) && @current_player == 2
-      depth = 0
-      @best_move = @ai.minimax(@cells_array, @current_player)
-      @cell.find_by(place: @best_move).update(value: 2)
+      @ai.minimax(@cells_array, @current_player)
+      @ai.best_move(@cell)
       redirect_to(:back)
     end
 

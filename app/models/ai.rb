@@ -49,10 +49,7 @@ class Ai < ApplicationRecord
   end
 
   def switch_player(current_player)
-    if current_player == 1
-      current_player = 2
-    end
-    current_player
+    current_player == 2 ? 1 : 2
   end
 
   def minimax(cells, current_player)
@@ -74,13 +71,16 @@ class Ai < ApplicationRecord
     end
 
     if current_player == 2
-      best_choice, best_score = scores.max_by { |_k, v| v }
-      return best_choice
+      @best_move, best_score = scores.max_by { |_k, v| v }
+      return best_score
     else
-      best_choice, best_score = scores.min_by { |_k, v| v }
-      return best_choice
+      @best_move, best_score = scores.min_by { |_k, v| v }
+      return best_score
     end
   end
 
+  def best_move(cells)
+    cells.find_by(place: @best_move).update(value: 2)
+  end
 
 end
