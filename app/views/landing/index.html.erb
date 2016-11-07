@@ -1,3 +1,14 @@
-<%= link_to games_path, method: :post, class: "btn btn-block like-button" do %>
-Start Game
-<% end %>
+<div class="landing">
+  <div class="introduction text-center">
+    <h1>Hi all! This is a simple Tic-Tac-Toe game. Have fun!</h1>
+  </div>
+
+  <div class="btn-container text-center">
+      <%= link_to "Start New Game", games_path, method: :post, class: "btn btn-primary" %>
+  </div>
+
+  <div class="details text-center">
+    <h3>created by:<h3>
+      <%= link_to "Low Yeong Yih", "http://www.lowyeongyih.com", :target => "_blank" %>
+  </div>
+</div>

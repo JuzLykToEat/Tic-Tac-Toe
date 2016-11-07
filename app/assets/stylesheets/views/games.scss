@@ -1,21 +1,76 @@
-.board {
-  max-width: 300px;
-  max-height: 300px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-}
+.game {
+  .board {
+    max-width: 300px;
+    max-height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 100px auto 70px auto;
+  }
 
-.cell {
-  min-width: 100px;
-  min-height: 100px;
-  border-style: solid;
-  border-width: medium;
-  border-color: black;
-}
+  .instructions {
+    margin: 20px auto;
+  }
 
-.invisible-layout {
-  height: 100%;
-  width: 100%;
-  opacity: 0;
+  .cell {
+    min-width: 100px;
+    min-height: 100px;
+    border-style: solid;
+    border-width: medium;
+    border-color: black;
+
+    .invisible-layout {
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+    }
+  }
+
+
+  #cell-0 {
+    border-top-color: white;
+    border-left-color: white;
+  }
+
+  #cell-1 {
+    border-top-color: white;
+  }
+
+  #cell-2 {
+    border-top-color: white;
+    border-right-color: white;
+  }
+
+  #cell-3 {
+    border-left-color: white;
+  }
+
+  #cell-5 {
+    border-right-color: white;
+  }
+
+  #cell-6 {
+    border-bottom-color: white;
+    border-left-color: white;
+  }
+
+  #cell-7 {
+    border-bottom-color: white;
+  }
+
+  #cell-8 {
+    border-bottom-color: white;
+    border-right-color: white;
+  }
+
+  #x-piece {
+    color: red;
+  }
+
+  #o-piece {
+    color: blue;
+  }
+
+  .btn-container {
+    margin: 20px auto;
+  }
 }

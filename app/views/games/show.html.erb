@@ -1,37 +1,43 @@
-<div class="board text-center">
-  <% @cell.each do |cell| %>
-    <div class="cell" id="cell-<%= cell.place %>">
-      <% case cell.value %>
-      <% when 1 %>
-        <h1 class="text-center">X</h1>
-      <% when 2 %>
-        <h1 class="text-center">O</h1>
-      <% else %>
-        <% if @game.outcome == nil %>
-          <% if @current_player == 1 %>
-            <%= link_to "", place_x_path(cell_id: cell.id), method: :post, class: "btn btn-block invisible-layout" %>
-          <% else %>
-            <%= link_to "", place_o_path(cell_id: cell.id), method: :post, class: "btn btn-block invisible-layout" %>
+<div class="game">
+  <div class="board text-center">
+    <% @cell.each do |cell| %>
+      <div class="cell" id="cell-<%= cell.place %>">
+        <% case cell.value %>
+        <% when 1 %>
+          <h1 class="text-center" id="x-piece">X</h1>
+        <% when 2 %>
+          <h1 class="text-center" id="o-piece">O</h1>
+        <% else %>
+          <% if @game.outcome == nil %>
+            <% if @current_player == 1 %>
+              <%= link_to "", place_x_path(cell_id: cell.id), method: :post, class: "btn btn-block invisible-layout" %>
+            <% else %>
+              <%= link_to "", place_o_path(cell_id: cell.id), method: :post, class: "btn btn-block invisible-layout" %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+  </div>
 
-  <div class="text-field">
+  <div class="instructions text-center">
     <% case @game.outcome %>
     <% when 1 %>
-      Player 1 wins!
+    <h1>Player 1 wins!</h1>
     <% when 2 %>
-      Player 2 wins!
+    <h1>Player 2 wins!</h1>
     <% when 0 %>
-      Draw!
+    <h1>Draw!</h1>
     <% else %>
-      <% if @current_player == 1 %>
-        Player 1's move
-      <% else %>
-        Player 2's move
-      <% end %>
+    <% if @current_player == 1 %>
+    <h1>Your turn to move!</h1>
+    <% end %>
+    <% end %>
+  </div>
+
+  <div class="btn-container text-center">
+    <% if @game.outcome %>
+      <%= link_to "Start New Game", games_path, method: :post, class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
