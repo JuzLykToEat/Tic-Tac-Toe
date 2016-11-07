@@ -4,13 +4,20 @@ class GamesController < ApplicationController
     @game = Game.find_by(id: params[:id])
     @board = Board.find_by(game_id: params[:id])
     @cell = @board.cells.order(place: :asc)
+    player_turn?
+
     @ai = Ai.find_by(id: 1)
     @cells_array = @ai.cells_array(@cell)
 
+    if !@ai.game_ended?(@cells_array) && @current_player == 2
+      depth = 0
+      @best_move = @ai.minimax(@cells_array, @current_player)
+      @cell.find_by(place: @best_move).update(value: 2)
+      redirect_to(:back)
+    end
+
     @game.game_draw(@cell)
     @game.determine_winner(@cell)
-    player_turn?
-    binding.pry
   end
 
   def create

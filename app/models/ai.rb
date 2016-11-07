@@ -8,7 +8,7 @@ class Ai < ApplicationRecord
         winning_player = cells[a[0]]
       end
     end
-    winning_player
+    return winning_player
   end
 
   def cells_array(cells)
@@ -42,31 +42,43 @@ class Ai < ApplicationRecord
   end
 
   def game_ended?(cells)
-    winner(cells).present? || available_cells_position(cells).empty?
+    available_cells = []
+    available_cells = available_cells_position(cells)
+
+    return winner(cells) || available_cells.empty?
   end
 
-  def minimax(cells)
+  def switch_player(current_player)
+    if current_player == 1
+      current_player = 2
+    end
+    current_player
+  end
+
+  def minimax(cells, current_player)
     return score(cells) if game_ended?(cells)
 
-    scores = []
+    scores = {}
+    potential_move = []
+    potential_move = available_cells_position(cells)
 
-    available_cells_position(cells).each do |position|
+    potential_move.each do |position|
       possible_cells = cells.dup
-      if possible_cells.count(1) > possible_cells.count(2)
+      if current_player == 2
         possible_cells[position] = 2
       else
         possible_cells[position] = 1
       end
 
-      scores[position] = minimax(possible_cells)
+      scores[position] = minimax(possible_cells, switch_player(current_player))
     end
 
-    if @current_player == 2
-      @choice = scores.each_with_index.max[1]
-      return scores[@choice]
+    if current_player == 2
+      best_choice, best_score = scores.max_by { |_k, v| v }
+      return best_choice
     else
-      @choice = scores.each_with_index.min[1]
-      return scores[@choice]
+      best_choice, best_score = scores.min_by { |_k, v| v }
+      return best_choice
     end
   end
 
