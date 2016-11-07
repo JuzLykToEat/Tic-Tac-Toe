@@ -22,16 +22,17 @@
 
   <div class="instructions text-center">
     <% case @game.outcome %>
-    <% when 1 %>
-    <h1>Player 1 wins!</h1>
-    <% when 2 %>
-    <h1>Player 2 wins!</h1>
-    <% when 0 %>
-    <h1>Draw!</h1>
-    <% else %>
-    <% if @current_player == 1 %>
-    <h1>Your turn to move!</h1>
-    <% end %>
+      <% when 1 %>
+        <h1>Player 1 wins!</h1>
+      <% when 2 %>
+        <h1>Player 2 wins!</h1>
+      <% when 0 %>
+        <h1>Draw!</h1>
+      <% else %>
+      <% if @current_player == 1 %>
+        <h1>Your turn to move!</h1>
+        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+      <% end %>
     <% end %>
   </div>
 
@@ -41,3 +42,10 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  $(".fa-spinner").hide();
+  $('.invisible-layout').on('click', function () {
+    $(".fa-spinner").show();
+  })
+</script>
