@@ -17,7 +17,6 @@ class CellsController < ApplicationController
 
     update_value(value)
     redirect_to(:back)
-
   end
 
   private

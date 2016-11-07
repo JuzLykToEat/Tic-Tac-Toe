@@ -19,6 +19,7 @@ class Ai < ApplicationRecord
     cells_array
   end
 
+# this will return the score depending of the outcome of the stimulation from the algorithm
   def score(cells)
     if winner(cells) == 2
       return 10
@@ -52,6 +53,8 @@ class Ai < ApplicationRecord
     current_player == 2 ? 1 : 2
   end
 
+# the minimax algorithm used to determine the best move
+# best move will be the move that returns the highest score
   def minimax(cells, current_player)
     return score(cells) if game_ended?(cells)
 
@@ -59,6 +62,7 @@ class Ai < ApplicationRecord
     potential_move = []
     potential_move = available_cells_position(cells)
 
+# each potential move will be placed on the board and the outcome will give the score
     potential_move.each do |position|
       possible_cells = cells.dup
       if current_player == 2
@@ -70,6 +74,7 @@ class Ai < ApplicationRecord
       scores[position] = minimax(possible_cells, switch_player(current_player))
     end
 
+# the move that score the highest will be used
     if current_player == 2
       @best_move, best_score = scores.max_by { |_k, v| v }
       return best_score
@@ -79,6 +84,7 @@ class Ai < ApplicationRecord
     end
   end
 
+# the returned best move will be applied
   def best_move(cells)
     cells.find_by(place: @best_move).update(value: 2)
   end
